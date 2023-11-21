@@ -1,0 +1,543 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : COL_WEBESTATE
+ major_version : 28
+ minor_version : 0
+ type : 7
+ description : ""
+ subtype : 0
+procedure_set :
+ identifier : 0x1abe22ae0203531a
+ internal_properties : CAAAAAgAAABGLu41kG7fjQV3iS4F72qmnKaNh5694reolNKIW0iw
+ code_elements :
+  internal_properties : CAAAAAgAAABPOo5wfzL5PtlmH9g6pVlcqG1md+uM4GM8B/k/aVja5R6ZseBzxTGWZbo12UeE8bWym5Rl91AKrNq9wTYnFyamg2lAMw==
+  type_code : 31
+  p_codes :
+   -
+     internal_properties : CAAAAAgAAAAdNNzfyTckdRvcuZ/4/DJtEmQmNM96ivFb7KIo5DMXvzyBFW2quf/79Es8IVOm1U6Dp01LRm/s/0Lni2gpfRvuoIz68O8EIlA4+bfqmr6x6MZrDnZ4RMJtIKnYAKSKFc8YxKMXmRywi4FzQHte78XZdJsZP5mEieWwdc8GIZeSkQ==
+     code : |1-
+      constant
+      	PARAM_TRANSACTION_TYPE = "TRANSAC"
+      	PARAM_LOCALIZATION = "LOC"
+      	PARAM_ESTATE_TYPE = "GOODS"
+      	PARAM_MAX_BUDGET = "MAXB"
+      	PARAM_MIN_BUDGET = "MINB"
+      	PARAM_MAX_SURFACE = "MAXS"
+      	PARAM_MIN_SURFACE = "MINS"
+      	PARAM_NB_ROOMS = "NBR"
+      	PARAM_ESTATE_ID = "ID"
+      	
+      	TRANSACTION_PURCHASE = 1
+      	TRANSACTION_RENTAL = 2
+      	
+      	ESTATETYPE_FLAT = 1
+      	ESTATETYPE_HOUSE = 2
+      	ESTATETYPE_ALL = 3
+      	
+      	SORT_ASCENDING_PRICE = 1
+      	SORT_DESCENDING_PRICE = 2
+      	SORT_ZIP_CODE = 3
+      	SORT_ASCENDING_DATE = 4
+      	SORT_DESCENDING_DATE = 5
+      
+      	SIZE_ZIP_CODE = 5
+      	
+      	IMAGE_NOT_AVAIL = "img/photo_not_available.jpg"
+      	IMAGE_GENERIC_HOUSE = "images/01-Fotolia_139109124.jpg"
+      	IMAGE_GENERIC_FLAT = "images/03-Fotolia_139107977.jpg"
+      	
+      	VK_DOWN = 40
+      	VK_ESC = 27
+      	VK_DEL = 8
+      	VK_RETURN = 13
+      end
+      
+      // Search criteria
+      STCriterion is Structure
+      	nTransactionType is int
+      	sLocation is string
+      	nTypeOfGood is int
+      	nMinBudget is int
+      	nMaxBudget is int
+      	nMinSurface is int
+      	nMaxSurface is int
+      	nNbRoom is int
+      	// Advanced search
+      	nNbBedrooms is int
+      	nMinYear is int
+      	nMaxYear is int
+      	nMaxDEP is int
+      	nMaxGHG is int
+      	dMinDate is date
+      end
+      gstSearch is STCriterion
+      
+      // Table of search results
+      STResult is Structure
+      	nEstateID is 8-byte int
+      	sReference is string
+      	sAdvertTitle is string
+      	cyPrice is currency
+      	sCity is string
+      	sZipCode is string
+      	sDescription is string
+      	nNbPhoto is int
+      	nSurface is int
+      	dAdDate is date
+      	nTypeOfGood is int
+      end
+      garrResultSearch is array of STResult
+      
+      // Table of selected ads
+      garrSelection is array of STResult
+     type : 720896
+  procedures :
+   -
+     name : ShareByEmail
+     internal_properties : CAAAAAgAAABV97+etsu4MT2DxmkYw30oA4hBgV2drXdNwn6qM+cX5Zi/miFLTFUxeg8z3NvJf4yvHhT6zxqDrF5h6j3LjotBEsFedLe/9v0s6yZkGdfT0aLFyY3aI+1ve9kMwYP9UYs025eaL0+2gQSDGyxpW0h9i/HDE7M5G2LEwZmovSlyPPU/mzs2Vag+58y26dx+5b3GMXy1vtURMxOBGukzBOVaf2GnwH0tPoFmCtx3gP3s3kSZpr9X73tKzXKbr8FUujfaSFjbpWOmXPiBfkRn/cjilyphU4Cc4ZbgVGQORKGxngUC32URawfj57UUY5eJ3jf1erY=
+     procedure_id : 1927015821314642714
+     type_code : 15
+     code : |1-
+      Procédure ShareByEmail(local sSenderName is string, local sRecipientEmail is string, local sMessage is string)
+      
+      // Check the parameters
+      if sSenderName="" then result "Specify your email address."
+      if sRecipientEmail="" then result "Specify the email address of the recipient."
+      
+      // Build the message
+      Email.Sender = "info@webestate"
+      Email.NbRecipient = 1
+      Email.Recipient[1] = sRecipientEmail
+      Email.Subject = StringBuild("A real estate proposal from %1",sSenderName)
+      Email.Message = StringBuild([
+      	Hello, 
+      	
+      	%1 thinks that you may be interested in this real estate:
+      	%2
+      	
+      	%3
+      	
+      	More real estates are available on the WebEstate site.
+      	
+      	Best regards, 
+      	The WebEstate team.
+      ],sSenderName,PageAddress("",paFULL),sMessage)
+      
+      // Send the message
+      if EmailStartSMTPSession("info@webestate","","localhost") then
+      	EmailSendMessage("info@webestate")
+      	EmailCloseSession("info@webestate")	
+      end
+      
+      result ""
+     type : 458752
+   -
+     name : StartSearch
+     procedure_id : 1927015821314708250
+     type_code : 15
+     code : |1+
+      // Summary: Performs a search by using the criteria in the gstSearch structure
+      // Syntax:
+      //StartSearch ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	None
+      //
+      Procédure StartSearch()
+      
+      // Transaction type
+      if gstSearch.nTransactionType>0 then
+      	QRY_MultiCriteriaSearch.pTransacType = gstSearch.nTransactionType
+      else
+      	QRY_MultiCriteriaSearch.pTransacType = Null
+      end
+      
+      // Type of goods
+      if gstSearch.nTypeOfGood>0 then
+      	switch gstSearch.nTypeOfGood
+      		case ESTATETYPE_FLAT
+      			QRY_MultiCriteriaSearch.pListEstateType = ESTATETYPE_FLAT
+      		case ESTATETYPE_HOUSE
+      			QRY_MultiCriteriaSearch.pListEstateType = ESTATETYPE_HOUSE
+      		other case
+      			QRY_MultiCriteriaSearch.pListEstateType = ESTATETYPE_FLAT+";"+ESTATETYPE_HOUSE
+      	end
+      else
+      	QRY_MultiCriteriaSearch.pListEstateType = Null
+      end
+      
+      // Localization
+      if gstSearch.sLocation="" then
+      	// No location
+      	QRY_MultiCriteriaSearch.pZipCode = Null
+      	QRY_MultiCriteriaSearch.pZipCodeStart = Null
+      	QRY_MultiCriteriaSearch.pCity = Null
+      else
+      	if IsNumeric(gstSearch.sLocation) then
+      		if Length(gstSearch.sLocation)<>SIZE_ZIP_CODE then
+      			QRY_MultiCriteriaSearch.pZipCodeStart = Val(gstSearch.sLocation)
+      			QRY_MultiCriteriaSearch.pZipCode = Null
+      			QRY_MultiCriteriaSearch.pCity = Null
+      		else
+      			QRY_MultiCriteriaSearch.pZipCode = Val(gstSearch.sLocation)
+      			QRY_MultiCriteriaSearch.pZipCodeStart = Null
+      			QRY_MultiCriteriaSearch.pCity = Null
+      		end
+      	else
+      		// A city name
+      		QRY_MultiCriteriaSearch.pZipCode = Null
+      		QRY_MultiCriteriaSearch.pZipCodeStart = Null
+      		QRY_MultiCriteriaSearch.pCity = gstSearch.sLocation
+      	end
+      end
+      
+      // Budget
+      if gstSearch.nMinBudget>0 then
+      	QRY_MultiCriteriaSearch.pMinBudget = gstSearch.nMinBudget
+      else
+      	QRY_MultiCriteriaSearch.pMinBudget = Null
+      end
+      if gstSearch.nMaxBudget>0 then
+      	QRY_MultiCriteriaSearch.pMaxBudget = gstSearch.nMaxBudget
+      else
+      	QRY_MultiCriteriaSearch.pMaxBudget = Null
+      end
+      
+      // Surface
+      if gstSearch.nMinSurface>0 then
+      	QRY_MultiCriteriaSearch.pMinSurface = gstSearch.nMinSurface
+      else
+      	QRY_MultiCriteriaSearch.pMinSurface = Null
+      end
+      if gstSearch.nMaxSurface>0 then
+      	QRY_MultiCriteriaSearch.pMaxSurface = gstSearch.nMaxSurface
+      else
+      	QRY_MultiCriteriaSearch.pMaxSurface = Null
+      end
+      
+      // Number of rooms
+      if gstSearch.nNbRoom>0 then
+      	QRY_MultiCriteriaSearch.pMinNbRooms = gstSearch.nNbRoom
+      else
+      	QRY_MultiCriteriaSearch.pMinNbRooms = Null
+      end
+      
+      // Number of bedrooms
+      if gstSearch.nNbBedrooms>0 then
+      	QRY_MultiCriteriaSearch.pMinNbBedrooms = gstSearch.nNbBedrooms
+      else
+      	QRY_MultiCriteriaSearch.pMinNbBedrooms = Null
+      end
+      
+      // Building year
+      if gstSearch.nMinYear>0 then
+      	QRY_MultiCriteriaSearch.pMinYear = gstSearch.nMinYear
+      else
+      	QRY_MultiCriteriaSearch.pMinYear = Null
+      end
+      if gstSearch.nMaxYear>0 then
+      	QRY_MultiCriteriaSearch.pMaxYear = gstSearch.nMaxYear
+      else	
+      	QRY_MultiCriteriaSearch.pMaxYear = Null
+      end
+      
+      // DEP/GHG
+      if gstSearch.nMaxDEP>0 then
+      	QRY_MultiCriteriaSearch.pMaxDEP = gstSearch.nMaxDEP
+      else
+      	QRY_MultiCriteriaSearch.pMaxDEP = Null
+      end
+      if gstSearch.nMaxGHG>0 then
+      	QRY_MultiCriteriaSearch.pMaxGHG = gstSearch.nMaxGHG
+      else
+      	QRY_MultiCriteriaSearch.pMaxGHG = Null
+      end
+      
+      // Minimum date of ad
+      if gstSearch.dMinDate<>"" then
+      	QRY_MultiCriteriaSearch.pMinDate = gstSearch.dMinDate
+      else
+      	QRY_MultiCriteriaSearch.pMinDate = Null
+      end
+      
+      // Sort
+      QRY_MultiCriteriaSearch.pSort = "Price"
+      
+      // Clears the results of the previous search
+      DeleteAll(garrResultSearch)
+      
+      // Run the query
+      if HExecuteQuery(QRY_MultiCriteriaSearch,hQueryDefault) then
+      	// Fill the table of results
+      	HReadFirst(QRY_MultiCriteriaSearch)
+      	while not HOut(QRY_MultiCriteriaSearch)
+      		stRes is STResult
+      		stRes.nEstateID = QRY_MultiCriteriaSearch.IDRealEstate
+      		stRes.sAdvertTitle = QRY_MultiCriteriaSearch.AdvertTitle
+      		stRes.cyPrice = QRY_MultiCriteriaSearch.Price
+      		stRes.sCity = QRY_MultiCriteriaSearch.City
+      		stRes.sZipCode = QRY_MultiCriteriaSearch.ZipCode
+      		stRes.sDescription = QRY_MultiCriteriaSearch.Description
+      		stRes.nNbPhoto = QRY_MultiCriteriaSearch.NnPhoto
+      		stRes.nSurface = QRY_MultiCriteriaSearch.Surface
+      		stRes.sReference = QRY_MultiCriteriaSearch.Reference
+      		stRes.dAdDate = QRY_MultiCriteriaSearch.AdDate
+      		stRes.nTypeOfGood = QRY_MultiCriteriaSearch.Type
+      		Add(garrResultSearch,stRes)
+      				
+      		HReadNext(QRY_MultiCriteriaSearch)
+      	end
+      end
+      
+      
+     type : 458752
+   -
+     name : InitializeWebEstate
+     procedure_id : 1927015821314773786
+     type_code : 15
+     code : |1+
+      // Summary: <specify the action of the procedure>
+      // Syntax:
+      //InitializeWebEstate ()
+      //
+      // Parameters:
+      //	None
+      // Return value:
+      // 	None
+      //
+      // Example:
+      // Indicate an example.
+      //
+      Procédure InitializeWebEstate()
+      
+      gstSearch.dMinDate = ""
+      
+      DeclareAWPContext(gstSearch)
+      DeclareAWPContext(garrResultSearch)
+      DeclareAWPContext(garrSelection)
+      
+      EmailSetTimeOut(5)
+     type : 458752
+   -
+     name : AddEstateIntoSelection
+     procedure_id : 1927015821314839322
+     type_code : 15
+     code : |1+
+      Procédure AddEstateIntoSelection( local nIncludeEstateInResult is int )
+      
+      if Seek(garrSelection,asLinear,"nEstateID",garrResultSearch[nIncludeEstateInResult].nEstateID)=-1 then
+      	Add(garrSelection,garrResultSearch[nIncludeEstateInResult])
+      end
+     type : 458752
+   -
+     name : SendSelectionByEmail
+     internal_properties : CAAAAAgAAABYz09wihI9uaOA0CXr7R7tXbkCiLm2ZPCyPchdWtPxTWO14x7wlB3YqfxSOMoQsFsE9EMB8SbkZIkAb+bJ/dYXCEWqTWuk6KA9P60nMogqMetxMWeREUuU7aokNv9DGhVW6AkzBHtAsfyHJcmUxsOgKPnWz/k+G03tg0I1orlTuysdauP0y9m4N8rtbtFcJBBUZCnxgHYsaYtt87ii8nZW2c9ARM2hDEft2NkR92CM5wC+RZuZd2y2EMQnGp5Ge9L1emOJRnEYMWQXS+KNOTUdAG9f/exnH9XttNwDD02n
+     procedure_id : 1927015821314904858
+     type_code : 15
+     code : |1+
+      // Summary: <specify the action of the procedure>
+      // Syntax:
+      //SendSelectionByEmail (<sRecipientAddress> is string)
+      //
+      // Parameters:
+      //	sRecipientAddress (ANSI string): <specify the role of sRecipientAddress>
+      // Return value:
+      // 	None
+      //
+      // Example:
+      // Indicate an example.
+      //
+      Procédure SendSelectionByEmail( local sRecipientAddress is string )
+      
+      Email.Subject = "Your selection of real estates"
+      Email.Sender = "info@webestate"
+      Email.NbRecipient = 1
+      Email.Recipient = sRecipientAddress
+      Email.Message = [
+      Hello,
+      
+      Here is the list of real estates selected on the WebEstate site:
+      ]
+      for each stAd of garrSelection
+      	Email.Message += StringBuild("%1 (Reference: %2)",stAd.sAdvertTitle,stAd.nEstateID)+CR
+      end
+      Email.Message += [
+      
+      Best regards,
+      The WebEstate team.
+      ]
+      
+      if EmailStartSMTPSession("info@webestate","","localhost") then
+      	EmailSendMessage("info@webestate")
+      	EmailCloseSession("info@webestate")
+      end
+     type : 458752
+   -
+     name : SortResults
+     procedure_id : 1927015821314970394
+     type_code : 15
+     code : |1+
+      // Summary: <specify the action of the procedure>
+      // Syntax:
+      //SortResults (<nCriterion> is int)
+      //
+      // Parameters:
+      //	nCriterion (integer): <specify the role of nCriterion>
+      // Return value:
+      // 	None
+      //
+      // Example:
+      // Indicate an example.
+      //
+      Procédure SortResults( local nCriterion is int )
+      
+      switch nCriterion
+      	case SORT_ASCENDING_PRICE
+      		Sort(garrResultSearch,asMember,"+cyPrice")
+      	case SORT_DESCENDING_PRICE
+      		Sort(garrResultSearch,asMember,"-cyPrice")
+      	case SORT_ZIP_CODE
+      		Sort(garrResultSearch,asMember,"+sZipCode")
+      	case SORT_ASCENDING_DATE
+      		Sort(garrResultSearch,asMember,"+dAdDate")
+      	case SORT_DESCENDING_DATE
+      		Sort(garrResultSearch,asMember,"-dAdDate")
+      end
+     type : 458752
+   -
+     name : PhotoFile
+     internal_properties : CAAAAAgAAADUL9CmjQAccUqqZ3VK9ivCF7SUrMoTpf7w+pQVdRxqyyZzMWTBUnD9oPi61f7IuZ6ygm5jztiNQ9o2VTZERvw5KZIYJJjw/4bQiNKfZ9wjUHF+bnAAVdrpt9xXX/rvV3aWTW6Opwi07zNG9HOSbl8CG2l9dK5b/qWu68qE4y+dkMx2IITtLHPOiifJL4Lq0+8hXvn0L6Q=
+     procedure_id : 1927015821315035930
+     type_code : 15
+     code : |1+
+      // Summary: <specify the action of the procedure>
+      // Syntax:
+      //[ <Result> = ] PhotoFile (<nEstateID> is int, <nPhotoRank> is int, <nEstateType> is int)
+      //
+      // Parameters:
+      //	nEstateID (integer): <specify the role of nEstateID>
+      //	nPhotoRank (integer): <specify the role of nPhotoRank>
+      //	nEstateType (integer): <specify the role of nEstateType>
+      // Return value:
+      // 	ANSI string: // 	None
+      //
+      // Example:
+      // Indicate an example.
+      //
+      Procédure PhotoFile( local nEstateID is int , local nPhotoRank is int, local nTypeOfGood is int )
+      
+      // Calculate the "standard" path
+      sPath is string = StringBuild("photo_estate_%1_%2.jpg",nEstateID,nPhotoRank)
+      if fFileExist(CompleteDir(fWebDir())+sPath) then
+      	result sPath
+      end
+      
+      switch nTypeOfGood
+      	case ESTATETYPE_FLAT
+      		result "/"+FolderWeb()+"/"+IMAGE_GENERIC_FLAT
+      	case ESTATETYPE_HOUSE
+      		result "/"+FolderWeb()+"/"+IMAGE_GENERIC_HOUSE
+      end
+      
+      // If the file does not exist, return a replacement image
+      result "/"+FolderWeb()+"/"+IMAGE_NOT_AVAIL
+     type : 458752
+   -
+     name : ListCityStartsWith
+     internal_properties : CAAAAAgAAABsNxAk19wG9Zoz0eBlsM8qGqwp3aU2eS7BMaKOyoT1QdFZzfCMPOyvVstxyMYJTD+E3z3P8WvpNddBeFHs9ATfutkJ83wTJjaV4i6br/VqSaI1Z8yRFedWOWGlvOqKdrYoyVc1YLoqYArgFdQnSwxZ3ciM2YZ6NG1Y6g5yx9WFe3b8
+     procedure_id : 1927015821315101466
+     type_code : 15
+     code : |1-
+      // Summary: <specify the action of the procedure>
+      // Syntax:
+      //[ <Result> = ] ListCityStartsWith (<sLocalization> is string)
+      //
+      // Parameters:
+      //	sLocalization (ANSI string): <specify the role of sLocalization>
+      // Return value:
+      // 	ANSI string: // 	None
+      //
+      // Example:
+      // Indicate an example.
+      //
+      Procédure ListCityStartsWith( local sLocation is string )
+      
+      sLocList is string
+      
+      if HExecuteQuery(QRY_CityStartsWith,hQueryDefault,sLocation) then
+      	for each QRY_CityStartsWith 
+      		sLocList += [CR] + StringBuild("%1 (%2)",QRY_CityStartsWith.City,QRY_CityStartsWith.ZipCode)
+      	end
+      end
+      
+      result sLocList
+     type : 458752
+   -
+     name : AddEstateIntoSelectionByID
+     procedure_id : 1927015821315167002
+     type_code : 15
+     code : |1+
+      Procédure AddEstateIntoSelectionByID( local nEstateID is int )
+      
+      if Seek(garrSelection,asLinear,"nEstateID",nEstateID)=-1 then
+      	if HReadSeekFirst(RealEstate,IDRealEstate,nEstateID) then
+      		stRes is STResult
+      		stRes.nEstateID = RealEstate.IDRealEstate
+      		stRes.sAdvertTitle = RealEstate.AdvertTitle
+      		stRes.cyPrice = RealEstate.Price
+      		stRes.sCity = RealEstate.City
+      		stRes.sZipCode = RealEstate.ZipCode
+      		stRes.sDescription = RealEstate.Description
+      		stRes.nNbPhoto = RealEstate.NnPhoto
+      		stRes.nSurface = RealEstate.Surface
+      		stRes.sReference = RealEstate.Reference
+      		stRes.dAdDate = RealEstate.AdDate
+      		stRes.nTypeOfGood = RealEstate.Type
+      		
+      		Add(garrSelection,stRes)
+      	end
+      end
+     type : 458752
+   -
+     name : __TestConnectionDB
+     procedure_id : 1927015821315232538
+     type_code : 15
+     code : |1+
+      Procédure private __TestConnectionDB()
+      
+      
+      
+      // Connection parameters
+      CtDB is connection
+      CtDB..Provider = hAccessHF7
+      
+      // Open the connection
+      TestCheck(HOpenConnection(CtDB),"failure","success","Check the connection to the database: ")
+      
+      // Checks the existence of the files
+      sListFile is string = HListFile()
+      for each string sFile of sListFile SEPARATED BY CR
+      	TestCheck(HFileExist(sFile),"failure","success",StringBuild("Check the existence of %1 file: ",sFile))
+      end
+      
+      // Runs a project query
+      TestCheck(HExecuteQuery(QRY_CityStartsWith,hQueryDefault,"A"),StringBuild("failure (%1)",HErrorInfo()),"success","Running a query: ")
+      
+      
+     type : 458752
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : CAAAAAgAAACVGQgYbalU7DKC3oH4ItDrjtcTHXXV/EuH8q0IbhyQlw==
+  original_name : COL_SansNom1
+resources :
+ string_res :
+  identifier : 0x10069a44263ac5fa
+  internal_properties : CAAAAAgAAACm76HWfKGWp33VjXInA4cRlqArlgTTA862QGt72W2ld5Y=
+custom_note :
+ internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
+associated_test :
+ name : TEST_COL_WEBESTATE.wxt

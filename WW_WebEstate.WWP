@@ -1,0 +1,321 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : WW_WebEstate
+ major_version : 28
+ minor_version : 0
+ type : 4097
+ description : ""
+ subtype : 0
+project :
+ identifier : 0x0
+ internal_properties : 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
+ configurations :
+  -
+    name : WEBESTATE
+    internal_properties : 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
+    configuration_id : 6553022692058948823
+    type : 2
+    generation_name : WW_WebEstate.wdl
+    version :
+     major_version : 23
+     minor_version : 31
+    index_page_generation_name : home
+    language : 2
+    64bits : true
+ elements :
+  identifier : 0x4aaf502900291c61
+  elements :
+   -
+     name : COL_WEBESTATE
+     identifier : 0x4225d64602675d25
+     internal_properties : CAAAAAgAAACimJqOPWpCXXBMIKcNJm8NbH1bgzYg55eADX/ThZtxtxnZHb1slMvNQf3n0VGPa12nrw==
+     physical_name : .\COL_WEBESTATE.wdg
+     type : 7
+   -
+     name : form
+     identifier : 0x49c389d801ecd9b5
+     internal_properties : CAAAAAgAAAAIy4Mq+T2nfPoew1x8xITPrhF1Mnsu3rWfoXRuIzXjNuFeerX0uh5cHoR9/Kjbj6TaUpBOsCfY0YbUeh+P0JdMEpxWuEo=
+     physical_name : .\form.wwh
+     type : 65538
+     report :
+      fr-FR : FR
+   -
+     name : list
+     identifier : 0x49c38a8601ef826e
+     internal_properties : CAAAAAgAAABBEkplsgTWWSe7luHxSQ1wf8icrZy1ac6uLBMD4PF6i/velspAEMaFT1Wmi9P4IDtz6zkV/5BPRgspz8Jq9egjS1Wf7wE=
+     physical_name : .\list.wwh
+     type : 65538
+     report :
+      fr-FR : FR
+   -
+     name : QRY_MultiCriteriaSearch
+     identifier : 0x422712510025ecc0
+     internal_properties : CAAAAAgAAADasIKGJWJKVWh0WP/1s/vBwGMPFy4F2Teixp6hHnyQsFT6wBoEPHN1OeXf2VmXY1W/Rw==
+     physical_name : .\QRY_MultiCriteriaSearch.WDR
+     type : 5
+   -
+     name : TEST_COL_WEBESTATE
+     identifier : 0x435635f8003087e2
+     internal_properties : CAAAAAgAAAAacMLG5aIKFd3WYcg5fGbvDkPtXWz2xzqE/GN/9TtRh71RUSYZ5wFYfqUfmRnXoxX/Bw==
+     physical_name : .\TEST_COL_WEBESTATE.wxt
+     type : 17
+   -
+     name : PAGETPL_Main
+     identifier : 0x49c0c1f000c6f0dd
+     internal_properties : CAAAAAgAAACmrI6SEU7miVecobQ99j9SDH17oxYAF7Xs3q8j9Svhxwnp8IBFsy1A+CmTbTWrV0mzsw==
+     physical_name : .\PAGETPL_Main.wwt
+     type : 65541
+   -
+     name : home
+     identifier : 0x49c115b000a31806
+     internal_properties : CAAAAAgAAAD7jDjvxP54s4lVAJ+7B38C4boSPwYvlYFYWrevagp0eCMcLBqUnbNTHwX+86fSjqXdXaujbWIdlEUTOVjAj1aN1d8RfXc=
+     physical_name : .\home.wwh
+     type : 65538
+     report :
+      fr-FR : FR
+   -
+     name : search
+     identifier : 0x49c3892401ea1aa4
+     internal_properties : CAAAAAgAAABMH08eXSG7cM4SP6iIEHALGk0pXqdKLSutA6v17rpci/42h7EURGAg6nCZMOBvs0h+/sSaZGsknVLgdhuDzJNIbnCi7AY=
+     physical_name : .\search.wwh
+     type : 65538
+     report :
+      fr-FR : FR
+   -
+     name : contact
+     identifier : 0x49c36c9100aa7c0e
+     internal_properties : CAAAAAgAAAAmIUVgv2P9MgjUgR46hvqNbNenqJG0OAQJ3yc5+mMXzADQHvitJksoKhDx4Gj5ITpw6D4Q8uWaE8SSuNlBDtEKUFKc4hw=
+     physical_name : .\contact.wwh
+     type : 65538
+     report :
+      fr-FR : FR
+   -
+     name : QRY_CityStartsWith
+     identifier : 0x4229a7f8002689a0
+     internal_properties : CAAAAAgAAADxTSl9yve/8PUR8ZTS0d58Y2ZSirEQbadS+p6pFJZ8vADMDE7XYZ4eloJ8RMwE/OzUXA==
+     physical_name : .\QRY_CityStartsWith.WDR
+     type : 5
+  other_elements : []
+  analysis : .\WEBESTATE.ana\WebEstate.wda
+  net_assemblies : []
+  uwp_api : []
+  external_components : []
+  internal_components : []
+ common_generation_directory : true
+ wb_skin : 190 Evolution
+ wb_color_palette : GreenVolution
+ site_type : 3
+ languages :
+  - en-GB
+ wd_style_sheet : .\WEBESTATE.sty
+ site_map :
+  roots : []
+  orphans :
+   -
+     name : contact
+     parameters : []
+     title :
+      fr-FR : Contact_new
+      en-GB : Contact_new
+     description :
+      fr-FR : Contact_new
+      en-GB : Contact_new
+   -
+     name : contact
+     parameters : []
+     title :
+      fr-FR : WebImmo
+      en-GB : WEBESTATE
+     description :
+      fr-FR : WebImmo
+      en-GB : WEBESTATE
+   -
+     name : form
+     parameters : []
+     title :
+      fr-FR : Fiche d'un bien
+      en-GB : Estate form
+     description :
+      fr-FR : Fiche d'un bien
+      en-GB : Estate form
+   -
+     name : form
+     parameters : []
+     title :
+      fr-FR : WebImmo
+      en-GB : WEBESTATE
+     description :
+      fr-FR : WebImmo
+      en-GB : WEBESTATE
+   -
+     name : home
+     parameters : []
+     title :
+      fr-FR : WW_WebImmo - Accueil
+      en-GB : WW_WebEstate - Home
+     description :
+      fr-FR : WW_WebImmo - Accueil
+      en-GB : WW_WebEstate - Home
+   -
+     name : list
+     parameters : []
+     title :
+      fr-FR : Liste des biens
+      en-GB : List of real estates
+     description :
+      fr-FR : Liste des biens
+      en-GB : List of real estates
+   -
+     name : list
+     parameters : []
+     title :
+      fr-FR : WebImmo - Liste de biens
+      en-GB : WebEstate - List of estates
+     description :
+      fr-FR : WebImmo - Liste de biens
+      en-GB : WebEstate - List of estates
+   -
+     name : search
+     parameters : []
+     title :
+      fr-FR : Recherche
+      en-GB : Search
+     description :
+      fr-FR : Recherche
+      en-GB : Search
+   -
+     name : search
+     parameters : []
+     title :
+      fr-FR : WebImmo - Recherche avancée
+      en-GB : WebEstate - Advanced search
+     description :
+      fr-FR : WebImmo - Recherche avancée
+      en-GB : WebEstate - Advanced search
+ url_rewriting :
+  internal_properties : CAAAAAgAAADkPzcUdUUS7wCiun+MCjqYH70RJdzkSv/nRvXZ3ENdikMa6bcHtsAH
+ code_elements :
+  internal_properties : CAAAAAgAAABseimUYz4VdXZ8hGsGFqoxLDfDcHkNZdBf0iQg2FQcqmw5VrO2lryVMt3efm9RagPlXJBReauIsX3ZdB8=
+  type_code : 0
+  p_codes :
+   -
+     code : |1-
+      
+      ConfigureAWPContext(ctxDisk,ctxIDCookieURL)
+      InitializeWebEstate()
+     type : 196608
+   -
+     type : 196621
+   -
+     type : 196627
+     enabled : false
+  orphans :
+   -
+     name : WEBESTATE
+     identifier : 0x4aaf502a003b1cbf
+     code_elements :
+      type_code : 159
+      p_codes : []
+ code_parameters :
+  internal_properties : CAAAAAgAAACVGQgYbalU7DKC3oH4ItDrjtcTHXXV/EuH8q0IbhyQlw==
+  original_name : WEBIMMO
+rad :
+ internal_properties : CAAAAAgAAABhIL0UXeZmxDJxY3Xy0Q==
+project_explorer :
+ explorer_type : project
+resources :
+ string_res :
+  identifier : 0x0
+  internal_properties : CAAAAAgAAACm76HWfKGWp33VjXInA4cRlqArlgTTA862QGt72W2ld5Y=
+  strings :
+   -
+     text :
+      en-GB : NoSurfaceLimit
+     index : 0
+   -
+     text :
+      en-GB : NoMinimumPrice
+     index : 1
+   -
+     text :
+      en-GB : NoMaximumPrice
+     index : 2
+   -
+     text :
+      en-GB : AllTheCategories
+     index : 3
+   -
+     text :
+      en-GB : AllTheStates
+     index : 4
+   -
+     text :
+      en-GB : AllTheCities
+     index : 5
+   -
+     text :
+      en-GB : Buy
+     index : 6
+   -
+     text :
+      en-GB : Rent
+     index : 7
+   -
+     text :
+      en-GB : House
+     index : 8
+   -
+     text :
+      en-GB : Flat
+     index : 9
+   -
+     text :
+      en-GB : NoSurfaceLimit
+     index : 10
+   -
+     text :
+      en-GB : NoMinimumPrice
+     index : 11
+   -
+     text :
+      en-GB : NoMaximumPrice
+     index : 12
+   -
+     text :
+      en-GB : AllTheCategories
+     index : 13
+   -
+     text :
+      en-GB : AllTheStates
+     index : 14
+   -
+     text :
+      en-GB : AllTheCities
+     index : 15
+   -
+     text :
+      en-GB : Buy
+     index : 16
+   -
+     text :
+      en-GB : Rent
+     index : 17
+   -
+     text :
+      en-GB : House
+     index : 18
+   -
+     text :
+      en-GB : Flat
+     index : 19
+   -
+     text :
+      en-GB : House
+     index : 20
+   -
+     text :
+      en-GB : House
+     index : 21
+custom_note :
+ internal_properties : CAAAAAgAAAAd98VSJfHHqE3P0QHwrwdhn7ig8dWBR6valpUTgnAMTVXiDg==
